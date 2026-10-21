@@ -1,0 +1,19 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node / NPM (if any)
+node_modules/
+npm-debug.log*
+
+# Environment / Secrets (Safety Guard)
+.env
+.env.*
+*.secret

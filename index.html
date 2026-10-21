@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Adventure Game</title>
+  <link rel="stylesheet" href="./style.css?v=6">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="384" height="216"></canvas>
+
+    <!-- Retro 3x3 Grid Viewport Overlay for Dialogs & Modals -->
+    <div id="modal-container" class="hidden">
+      <!-- Gift Modal (Center of 3x3) -->
+      <div id="gift-modal" class="retro-panel hidden">
+        <div class="panel-header" id="gift-modal-title">🎁 Birthday Gift</div>
+        <div id="gift-modal-text" class="panel-body">A special gift for you!</div>
+        <div class="panel-footer">
+          <button id="btn-gift-okay" class="retro-btn">Okay [Enter]</button>
+        </div>
+      </div>
+
+      <!-- Inventory Machine Modal -->
+      <div id="machine-modal" class="retro-panel hidden">
+        <div class="panel-header" id="machine-modal-title">🏧 Key Dispenser Machine</div>
+        <div id="machine-modal-body" class="panel-body">
+          <p id="machine-modal-desc">Deposit 40 coins to unlock the Golden Castle Key!</p>
+          <div class="status-row" id="machine-status-row">
+            <span>Coins Held: <strong id="machine-coins-held">0</strong></span>
+            <span>Required: <strong id="machine-coins-required">40</strong></span>
+          </div>
+          <div id="machine-status-msg" class="status-msg"></div>
+        </div>
+        <div class="panel-footer" id="machine-modal-footer">
+          <button id="btn-machine-confirm" class="retro-btn btn-confirm">Deposit 40 Coins [Enter]</button>
+          <button id="btn-machine-cancel" class="retro-btn btn-cancel">Cancel [Esc]</button>
+          <button id="btn-machine-close" class="retro-btn hidden">Okay [Enter]</button>
+        </div>
+      </div>
+
+      <!-- Castle Key Use Modal -->
+      <div id="castle-modal" class="retro-panel hidden">
+        <div class="panel-header" id="castle-modal-title">🏰 Castle Gate</div>
+        <div class="panel-body">
+          <p id="castle-modal-desc">Use the Golden Key to unlock the Castle Gate?</p>
+        </div>
+        <div class="panel-footer" id="castle-modal-footer">
+          <button id="btn-castle-confirm" class="retro-btn btn-confirm">Unlock Gate [Enter]</button>
+          <button id="btn-castle-cancel" class="retro-btn btn-cancel">Cancel [Esc]</button>
+          <button id="btn-castle-close" class="retro-btn hidden">Okay [Enter]</button>
+        </div>
+      </div>
+
+      <!-- Controls & Help Modal -->
+      <div id="controls-modal" class="retro-panel hidden">
+        <div class="panel-header" id="controls-modal-title">🎮 HOW TO PLAY</div>
+        <div id="controls-modal-body" class="panel-body">
+          <div class="controls-table">
+            <div class="control-row"><span class="control-key">← / →</span><span class="control-desc">Move Left / Right</span></div>
+            <div class="control-row"><span class="control-key">Space</span><span class="control-desc">Normal Jump</span></div>
+            <div class="control-row"><span class="control-key">Hold Space</span><span class="control-desc">Higher Jump (Variable)</span></div>
+            <div class="control-row"><span class="control-key">Double Space</span><span class="control-desc">Extra-High Jump</span></div>
+            <div class="control-row"><span class="control-key">E</span><span class="control-desc">Open Nearby Gift</span></div>
+            <div class="control-row"><span class="control-key">D</span><span class="control-desc">Deposit Coins at Machine</span></div>
+            <div class="control-row"><span class="control-key">U</span><span class="control-desc">Unlock Castle Gate</span></div>
+            <div class="control-row"><span class="control-key">Enter</span><span class="control-desc">Confirm Dialog</span></div>
+            <div class="control-row"><span class="control-key">Escape</span><span class="control-desc">Close / Cancel Dialog</span></div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button id="btn-controls-close" class="retro-btn">Close [Esc]</button>
+        </div>
+      </div>
+
+      <!-- Celebration & Victory Fallback Modal -->
+      <div id="victory-modal" class="retro-panel hidden">
+        <div class="panel-header" id="victory-header">🎉 Happy Birthday! 🎉</div>
+        <div class="panel-body">
+          <p class="celebration-title" id="victory-title">YOU MADE IT!</p>
+          <p id="victory-text">A special birthday surprise awaits you!</p>
+        </div>
+        <div class="panel-footer" id="victory-footer">
+          <button id="btn-surprise" class="retro-btn btn-confirm hidden">Watch the Surprise [Enter]</button>
+          <button id="btn-replay" class="retro-btn">Play Again [Enter]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clickable Controls / Help Icon Button -->
+    <button id="btn-controls-icon" class="controls-icon" aria-label="Controls and Help" title="How to Play [H] / Controls">?</button>
+  </div>
+
+  <script type="module" src="./js/game.js?v=8"></script>
+</body>
+</html>
