@@ -317,7 +317,7 @@ export const CONFIG = {
        or any private video link), walking into the castle gate will automatically
        redirect the player to your special birthday video!
      ========================================================================== */
-  BIRTHDAY_VIDEO_URL: "",
+  BIRTHDAY_VIDEO_URL: "https://youtu.be/R8LxWz4n1f8",
 
   // Debug flag
   DEBUG: false

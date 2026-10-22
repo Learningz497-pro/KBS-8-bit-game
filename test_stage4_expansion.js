@@ -302,7 +302,7 @@ gameCastle.player.x = CONFIG.CASTLE.entranceTrigger.x + 5;
 gameCastle.player.y = 117;
 gameCastle.checkCastleEntranceTrigger();
 assert(gameCastle.state.isTransitioning === true, "Doorway walk-in triggers transition");
-assert(gameCastle.state.activeModal === 'VICTORY', "Victory fallback modal shown on empty URL");
+assert(gameCastle.state.activeModal === null, "No popup modal shown on empty URL");
 
 console.log(`\n========================================`);
 console.log(`Expansion Results: ${passed} Passed, ${failed} Failed`);

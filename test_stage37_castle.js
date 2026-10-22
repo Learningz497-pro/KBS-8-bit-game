@@ -230,8 +230,8 @@ const secondTriggerAttempt = gameWithKey.state.isTransitioning;
 gameWithKey.triggerFinalEntrance();
 assert(secondTriggerAttempt === true, "Transition flag prevents duplicate entrance triggers");
 
-// TEST 10: Fallback Celebration Screen When URL is Empty
-console.log("\nTest 10: Fallback Celebration Screen (Empty URL)");
+// TEST 10: Fallback Without Popup Screen (Empty URL)
+console.log("\nTest 10: Fallback Without Popup Screen (Empty URL)");
 CONFIG.BIRTHDAY_VIDEO_URL = ""; // empty url
 const gameFallback = new Game();
 gameFallback.init();
@@ -242,9 +242,7 @@ gameFallback.player.y = 117;
 gameFallback.checkCastleEntranceTrigger();
 
 assert(gameFallback.state.isTransitioning === true, "Transition initiated on empty URL");
-assert(gameFallback.state.activeModal === 'VICTORY', "Victory modal displayed as fallback when URL is empty");
-assert(!gameFallback.victoryModal.classList.contains('hidden'), "Victory modal is visible in DOM");
-assert(!gameFallback.btnReplay.classList.contains('hidden'), "Play Again button is visible in fallback modal");
+assert(gameFallback.state.activeModal === null, "Victory modal is completely removed / no modal displayed");
 
 // TEST 11: Configured URL Navigation
 console.log("\nTest 11: Configured URL Navigation Behavior");
@@ -261,7 +259,7 @@ assert(gameConfigured.state.isTransitioning === true, "Transition initiated on c
 assert(global.window.location.href === "https://example.com/birthday-surprise", `Browser navigated to configured URL (${global.window.location.href})`);
 
 // Restore CONFIG.BIRTHDAY_VIDEO_URL
-CONFIG.BIRTHDAY_VIDEO_URL = "";
+CONFIG.BIRTHDAY_VIDEO_URL = "https://youtu.be/R8LxWz4n1f8";
 
 // TEST 12: Non-Interference With Gifts & Machine Modals
 console.log("\nTest 12: Non-Interference With Existing Modals");

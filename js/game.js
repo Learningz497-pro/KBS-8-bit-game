@@ -550,23 +550,21 @@ class Game {
   }
 
   openCastleModal() {
+    // If castle already unlocked, do not show any modal
+    if (this.state.castleUnlocked) {
+      this.castleSubState = 'LOCKED';
+      if (this.btnCastleConfirm) this.btnCastleConfirm.classList.add('hidden');
+      return;
+    }
+
     this.state.activeModal = 'CASTLE';
     this.modalOpenTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
 
     if (this.modalContainer) this.modalContainer.classList.remove('hidden');
     if (this.castleModal) this.castleModal.classList.remove('hidden');
 
-    // Case 1: Castle already unlocked
-    if (this.state.castleUnlocked) {
-      this.castleSubState = 'LOCKED';
-      if (this.castleModalTitle) this.castleModalTitle.textContent = "🏰 Castle Gate";
-      if (this.castleModalDesc) this.castleModalDesc.textContent = "The Castle Gate is already open! Walk through the archway to discover your birthday surprise!";
-      if (this.btnCastleConfirm) this.btnCastleConfirm.classList.add('hidden');
-      if (this.btnCastleCancel) this.btnCastleCancel.classList.add('hidden');
-      if (this.btnCastleClose) this.btnCastleClose.classList.remove('hidden');
-    }
-    // Case 2: Player does NOT own the key
-    else if (!this.state.hasKey) {
+    // Case 1: Player does NOT own the key
+    if (!this.state.hasKey) {
       this.castleSubState = 'LOCKED';
       if (this.castleModalTitle) this.castleModalTitle.textContent = "🏰 Castle Gate";
       if (this.castleModalDesc) this.castleModalDesc.textContent = "The castle is locked. Find the Golden Castle Key first!";
@@ -574,7 +572,7 @@ class Game {
       if (this.btnCastleCancel) this.btnCastleCancel.classList.add('hidden');
       if (this.btnCastleClose) this.btnCastleClose.classList.remove('hidden');
     }
-    // Case 3: Player owns the key and gate is locked (Confirmation Prompt)
+    // Case 2: Player owns the key and gate is locked (Confirmation Prompt)
     else {
       this.castleSubState = 'CONFIRM';
       if (this.castleModalTitle) this.castleModalTitle.textContent = "🏰 Castle Gate";
@@ -597,7 +595,7 @@ class Game {
     this.state.keyUsed = true;
     this.castle.unlock();
 
-    // Close modal and resume gameplay so player can walk freely through entrance
+    // Close modal and resume gameplay so player walks inside doorway to trigger redirect
     this.closeCastleModal();
   }
 
@@ -646,7 +644,7 @@ class Game {
     const tTop = this.castle.entranceTrigger.y;
     const tBottom = this.castle.entranceTrigger.y + this.castle.entranceTrigger.h;
 
-    // Two-stage trigger: only fires when player physically enters the open doorway
+    // Fires when player physically enters the open doorway
     if (pRight > tLeft && pLeft < tRight && pBottom > tTop && pTop < tBottom) {
       this.triggerFinalEntrance();
     }
@@ -657,22 +655,13 @@ class Game {
     this.state.isTransitioning = true;
     this.input.reset();
 
-    // If BIRTHDAY_VIDEO_URL is configured with a valid destination
+    // If BIRTHDAY_VIDEO_URL is configured with a valid destination, redirect directly
     if (CONFIG.BIRTHDAY_VIDEO_URL && CONFIG.BIRTHDAY_VIDEO_URL.trim().length > 0) {
       if (typeof window !== 'undefined' && window.location) {
         window.location.href = CONFIG.BIRTHDAY_VIDEO_URL.trim();
       }
-    } else {
-      // Fallback: Celebration & Victory Screen
-      this.state.activeModal = 'VICTORY';
-      this.modalOpenTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
-
-      if (this.modalContainer) this.modalContainer.classList.remove('hidden');
-      if (this.victoryModal) this.victoryModal.classList.remove('hidden');
-
-      if (this.btnSurprise) this.btnSurprise.classList.add('hidden');
-      if (this.btnReplay) this.btnReplay.classList.remove('hidden');
     }
+    // No popup message or victory modal is shown
   }
 
   handleSurpriseClick() {
